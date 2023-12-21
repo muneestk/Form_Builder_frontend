@@ -1,0 +1,54 @@
+<div class="container d-flex align-items-center justify-content-center">
+    <div class="card mt-5 mb-5">
+        <div class="card-body">
+            <mat-tab-group>
+                <mat-tab dynamicHeight label="Login" >
+                    <div class="container ">
+                        <form [formGroup]="loginForm" #form="ngForm" (ngSubmit)="onLogin()" class="example-form mt-5 ">
+                            <div>
+                            <mat-form-field class="example-full-width">
+                                <mat-label>Email</mat-label>
+                                <input formControlName="email" matInput placeholder="Ex. example@gmail.com">
+                            </mat-form-field>
+                            <div style="width: 468px;" *ngIf="form.submitted && loginForm.controls['email'].errors"
+                                class="text-danger">
+                                <p *ngIf="form.submitted && loginForm.controls['email'].errors['required']">
+                                    Email is required
+                                </p>
+                                <p *ngIf="form.submitted && loginForm.controls['email'].errors['email']">
+                                    Invalid email
+                                </p>
+                            </div>
+                            <mat-form-field class="example-full-width">
+                                <mat-label>Password</mat-label>
+                                <input [type]="hideLogin ? 'password' : 'text'" formControlName="password" matInput>
+                                <a mat-icon-button matSuffix (click)="hideLogin = !hideLogin"
+                                    [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideLogin">
+                                    <mat-icon>{{hideLogin ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                </a>
+                            </mat-form-field>
+                            <div style="width: 468px;" *ngIf="form.submitted && loginForm.controls['password'].errors"
+                                class="text-danger">
+                                <p *ngIf="form.submitted && loginForm.controls['password'].errors['required']">
+                                    Password is required
+                                </p>
+                                <p *ngIf="form.submitted && loginForm.controls['password'].errors['minlength']">
+                                    Password must have at least 8 characters.
+                                </p>
+                            </div>
+                           
+                            <div class="submit-button">
+                                <button style="width: 100%;" type="submit" class="login-button"
+                                    mat-button>Login</button>
+                            </div>
+                        </div>
+                        </form>
+                    </div>
+                </mat-tab>
+                <mat-tab dynamicHeight label="Register">
+                   <app-register></app-register>
+                </mat-tab>
+            </mat-tab-group>
+        </div>
+    </div>
+</div>

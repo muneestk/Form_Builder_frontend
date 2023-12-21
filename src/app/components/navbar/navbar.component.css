@@ -1,0 +1,20 @@
+@media (min-width: 768px) {
+    /* Increase height on medium screens */
+    .navbar {
+        height: 100px; /* Adjust the desired height */
+    }
+
+    /* Customize the toggle button */
+    .custom-toggler {
+        background-color: #343a40 ; /* Dark color for the toggle button */
+        border-color: #343a40;
+    }
+
+    .custom-toggler-icon {
+        background-color: #fff; /* White color for the toggle icon */
+    }
+}
+
+li:hover{
+    color: gray !important;
+}

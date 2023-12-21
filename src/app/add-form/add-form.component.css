@@ -1,0 +1,48 @@
+.sidenav-container {
+  height: 100%;
+}
+
+.sidenav {
+  width: 200px;
+}
+
+.sidenav .mat-toolbar {
+  background: inherit;
+}
+
+.mat-toolbar.mat-primary {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+
+/* Add suitable hover effect to sidebar items */
+.mat-nav-list a:hover {
+  background-color: #221f1f; /* Change the background color on hover */
+}
+
+/* Adjust the padding and font size for better spacing */
+.mat-nav-list a {
+  padding: 12px 16px;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+}
+
+/* Add margin between icon and text */
+.mat-nav-list a mat-icon {
+  margin-right: 8px;
+}
+
+/* Add suitable styles to keep icon and text on the same line */
+.mat-nav-list a {
+  display: flex;
+  align-items: center;
+  text-decoration: none; /* Remove underline on link */
+}
+
+/* Add margin between icon and text */
+.mat-nav-list a mat-icon {
+  margin-right: 8px;
+}
