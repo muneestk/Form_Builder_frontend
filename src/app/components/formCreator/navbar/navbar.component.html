@@ -11,7 +11,7 @@
                     <a class="nav-link text-dark fs-5" aria-current="page" [routerLink]="['/']" style="transition: background-color 0.3s ease-in-out;">Forms</a>
                 </li>
                 <!-- Add Form Link -->
-                <li class="nav-item" *ngIf="authenticated">
+                <li class="nav-item" >
                     <a class="nav-link text-dark fs-5" [routerLink]="['/addform']" tabindex="-1" aria-disabled="true" style="transition: background-color 0.3s ease-in-out;">Add Form</a>
                 </li>             
                 <!-- Account Dropdown (Not Authenticated) -->
