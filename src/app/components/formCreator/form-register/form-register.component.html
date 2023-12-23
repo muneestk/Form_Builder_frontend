@@ -1,0 +1,95 @@
+<div class="container shadow border mt-3">
+    <div class="shadow border m-5">
+      <form [formGroup]="form" #formSubmit="ngForm" (ngSubmit)="OnSubmit()">
+        <div *ngFor="let field of singleForm.formFields" class="p-2">
+          <div *ngIf="isKeyHeading(field)" class="pt-4 pb-2" style="position: relative;">
+            <div class="d-flex justify-content-center align-items-center">
+              <h1 class="text-center" [ngStyle]="{ 'font-size': field.fontSize+'px', 'color': field.color }">
+                {{ field.title }}
+              </h1>
+            </div>
+          </div>
+
+          <div *ngIf="isKeytext(field)" class="w-100 border-1 border-dark d-flex justify-content-center align-items-center">
+            <mat-form-field class="pt-4 w-75">
+              <mat-label>{{ field.title }}</mat-label>
+              <input [type]="field.type" matInput [placeholder]="field.placeholder" [formControlName]="field.title">
+              <mat-error *ngIf="form.get(field.title)?.hasError('required') && (form.get(field.title)?.dirty || form.get(field.title)?.touched)">
+                {{ field.title }} is required
+              </mat-error>
+              <mat-error *ngIf="form.get(field.title)?.hasError('minlength') && (form.get(field.title)?.dirty || form.get(field.title)?.touched)">
+                {{ field.title }} should be at least {{ field.rules.minlength }} characters long
+              </mat-error>
+              <mat-error *ngIf="form.get(field.title)?.hasError('maxlength') && (form.get(field.title)?.dirty || form.get(field.title)?.touched)">
+                {{ field.title }} should not exceed {{ field.rules.maxlength }} characters
+              </mat-error>
+            </mat-form-field>
+          </div>
+  
+          <div *ngIf="isKeyNumber(field)" class="w-100 border-1 border-dark d-flex justify-content-center align-items-center">
+            <mat-form-field class="w-75 pt-4">
+              <mat-label>{{ field.title }}</mat-label>
+              <input type="number" matInput [placeholder]="field.placeholder" [formControlName]="field.title">
+              <mat-error *ngIf="form.get(field.title)?.hasError('required') && (form.get(field.title)?.dirty || form.get(field.title)?.touched)">
+                {{ field.title }} is required
+              </mat-error>
+              <mat-error *ngIf="form.get(field.title)?.hasError('minlength') && (form.get(field.title)?.dirty || form.get(field.title)?.touched)">
+                {{ field.title }} should be at least {{ field.rules.minlength }} characters long
+              </mat-error>
+              <mat-error *ngIf="form.get(field.title)?.hasError('maxlength') && (form.get(field.title)?.dirty || form.get(field.title)?.touched)">
+                {{ field.title }} should not exceed {{ field.rules.maxlength }} characters
+              </mat-error>
+              <mat-error *ngIf="form.get(field.title)?.hasError('pattern') && (form.get(field.title)?.dirty || form.get(field.title)?.touched)">
+                {{ field.title }} should only contain numbers
+              </mat-error>
+            </mat-form-field>
+          </div>
+  
+          <div *ngIf="field.type == 'date'" class="w-100 border-1 border-dark d-flex justify-content-center align-items-center">
+            <mat-form-field class="w-75 pt-4">
+              <mat-label>{{ field.title }}</mat-label>
+              <input matInput readonly [matDatepicker]="picker" [formControlName]="field.title">
+              <mat-hint>MM/DD/YYYY</mat-hint>
+              <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+              <mat-error *ngIf="form.get(field.title)?.hasError('required') && (form.get(field.title)?.dirty || form.get(field.title)?.touched)">
+                {{ field.title }} is required
+              </mat-error>
+              <!-- Add additional date-related validations if needed -->
+            </mat-form-field>
+          </div>
+  
+          <div *ngIf="field.type=='radio'" class="w-100 border-1 border-dark d-flex justify-content-center align-items-center">
+            <mat-label id="example-radio-group-label" class="fw-bold">{{ field.title }}</mat-label>
+            <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group" [formControlName]="field.title">
+              <mat-radio-button
+                *ngFor="let option of field.options"
+                class="example-radio-button"
+                [value]="option.value"
+              >
+                {{ option.key }}
+              </mat-radio-button>
+            </mat-radio-group>
+          </div>
+          
+  
+          <div *ngIf="field.type=='checklist'" class="w-100 border-1 border-dark d-flex justify-content-center align-items-center">
+            <mat-form-field class="w-75 pt-4">
+              <mat-label>{{ field.title }}</mat-label>
+              <br>
+              <mat-select [formControlName]="field.title">
+                <mat-option *ngFor="let option of field.options" [value]="option.value">{{ option.key }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+  
+          <div *ngIf="field.type=='submit'" class="w-100 border-1 border-dark d-flex justify-content-center align-items-center">
+            <button mat-raised-button type="submit" [color]="field.backgroundColor" >
+              {{ field.title }}
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  

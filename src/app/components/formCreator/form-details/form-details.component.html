@@ -1,0 +1,37 @@
+<!-- form-details.component.html -->
+<div class="container p-5 shadow border mt-5">
+    <h1 class="text-center fs-2 fw-bold">{{ formName }}</h1>
+    <div class="p-3 shadow border">
+      <div class="form-group">
+        <label for="searchInput">Search:</label>
+        <input type="text" id="searchInput" class="form-control" [(ngModel)]="searchTerm" />
+      </div>
+      <div class="table-responsive">
+        <table class="table caption-top">
+            <caption>List of users</caption>
+            <thead>
+              <tr>
+                <th class="col">No.</th>
+                <th scope="col" *ngFor="let field of singleForm.formSubmitted[0]?.formData[0] | keyvalue">{{ field.key }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let submission of pagedFormSubmissions; let i = index">
+                <th scope="row">{{ i + 1 + (currentPage - 1) * itemsPerPage }}</th>
+                <td *ngFor="let field of submission.formData[0] | keyvalue">{{ field.value }}</td>
+              </tr>
+            </tbody>
+          </table>
+      </div>
+    
+  
+      <nav aria-label="Page navigation example">
+        <ul class="pagination  d-flex align-items-center justify-content-center">
+          <li class="page-item" *ngFor="let page of pages">
+            <a class="page-link" (click)="setCurrentPage(page)">{{ page }}</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+  

@@ -17,6 +17,10 @@ import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatSelectModule } from '@angular/material/select';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import {MatRadioModule} from '@angular/material/radio';
+
 
 @NgModule({
   exports: [
@@ -37,7 +41,10 @@ import { MatTabsModule } from '@angular/material/tabs';
     MatDatepickerModule,
     MatNativeDateModule,
     MatStepperModule,
-    MatTabsModule
+    MatTabsModule,
+    MatSelectModule,
+    MatCheckboxModule,
+    MatRadioModule
 ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'en-US' }, 

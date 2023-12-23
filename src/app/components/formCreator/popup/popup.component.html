@@ -1,0 +1,26 @@
+<ng-container *ngIf="formName" class="d-flex justify-content-center align-items-center">
+    <form [formGroup]="FormSave" (ngSubmit)="formnameSave()">
+      <h1 mat-dialog-title>{{ inputData.title }}</h1>
+      <div mat-dialog-content>
+        <mat-form-field class="w-100">
+            <mat-label>Form Name</mat-label>
+            <input matInput formControlName="name" />
+            <mat-error *ngIf="FormSave.get('name')?.hasError('required')">
+              Form name is required
+            </mat-error>
+          </mat-form-field>
+          
+          
+      </div>
+      <div
+        mat-dialog-actions
+        class="d-flex justify-content-center"
+        fxLayout="row"
+        fxLayoutAlign="center center"
+      >
+        <button mat-dialog-close mat-raised-button color="warn">Close</button>
+        <button mat-raised-button color="primary" type="submit">Save</button>
+      </div>
+    </form>
+  </ng-container>
+  

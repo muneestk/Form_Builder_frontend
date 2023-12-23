@@ -1,0 +1,28 @@
+.sidenav-container {
+  height: 100%;
+}
+
+.sidenav {
+  width: 200px;
+}
+
+.sidenav .mat-toolbar {
+  background: inherit;
+}
+
+.mat-toolbar.mat-primary {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+
+/* Adjust the padding and font size for better spacing */
+.mat-nav-list a {
+  padding: 12px 16px;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+}
+
+

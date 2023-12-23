@@ -29,6 +29,27 @@ export class UserServiceService {
     return this._http.post(`${this.userApiKey}/login`,user,httpOptions)
   }
 
+  saveForm(form:any,formName:any,id:string):Observable<any>{
+    return this._http.post(`${this.userApiKey}/saveForm`,{form,formName,id},httpOptions)
+  }
+
+  getForms(id:string):Observable<any>{
+    return this._http.get(`${this.userApiKey}/getForms/${id}`);
+  }
+
+  getSingleForm(id:string):Observable<any>{
+    return this._http.get(`${this.userApiKey}/getSingleForm/${id}`);
+  }
+
+  registerForm(form:any,formId:string,formName:string):Observable<any>{
+    return this._http.post(`${this.userApiKey}/registerForm`,{form,formId,formName},httpOptions)
+  }
+
+  editForm(form:any,formId:string):Observable<any>{
+    return this._http.patch(`${this.userApiKey}/editForm`,{form,formId},httpOptions)
+  }
+
 
   
 }
+ 

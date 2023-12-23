@@ -7,13 +7,17 @@ import { LoginComponent } from './components/formCreator/login/login.component';
 import { RegisterComponent } from './components/formCreator/register/register.component';
 import { HomeComponent } from './components/formCreator/home/home.component';
 import { AppRoutingModule } from './app.routing.module';
-import { ReactiveFormsModule } from '@angular/forms';
-import { MaterialModule } from './material.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MaterialModule } from './materials/material.module';
 import { UserServiceService } from './service/user-service.service';
 import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
-import { NavbarComponent } from './components/navbar/navbar.component';
-import { AddFormComponent } from './add-form/add-form.component';
+import { NavbarComponent } from './components/formCreator/navbar/navbar.component';
+import { AddFormComponent } from './components/formCreator/add-form/add-form.component';
+import { PopupComponent } from './components/formCreator/popup/popup.component';
+import { FormRegisterComponent } from './components/formCreator/form-register/form-register.component';
+import { FormEditComponent } from './components/formCreator/form-edit/form-edit.component';
+import { FormDetailsComponent } from './components/formCreator/form-details/form-details.component';
 
 
 @NgModule({
@@ -23,7 +27,11 @@ import { AddFormComponent } from './add-form/add-form.component';
     RegisterComponent,
     HomeComponent,
     NavbarComponent,
-    AddFormComponent
+    AddFormComponent,
+    PopupComponent,
+    FormRegisterComponent,
+    FormEditComponent,
+    FormDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +41,8 @@ import { AddFormComponent } from './add-form/add-form.component';
     ReactiveFormsModule,
     MaterialModule,
     HttpClientModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    FormsModule
   ],
   providers: [UserServiceService],
   bootstrap: [AppComponent],

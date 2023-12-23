@@ -1,0 +1,291 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport style="margin-top: 120px; width: 250px;"
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="!(isHandset$ | async)">
+    <mat-nav-list>
+      <a *ngFor="let item of sidebarItem" (click)="addField(item.name)" class="list-group-item text-center d-flex justify-content-center align-items-center sidenav-link " style="height: 40px;padding: 35px;" >
+        <span class="material-icons me-2" style="vertical-align: middle;">{{ item.icon }}</span>{{ item.name }}
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content  >
+    <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
+      *ngIf="isHandset$ | async">
+      <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+    </button>
+    <!-- Add Content Here -->
+    <h1 class="fs-2 fw-bold ms-5 mt-4">{{!formedit?'Add Form':'Edit Form'}}</h1>
+    <div class="row justify-content-around mt-3 h-75">
+      <div class="col-6 border border-dark border-1 rounded-1 shadow mt-3" style="min-height: 30%;background-color: #f1e1ef;" 
+    
+      >
+        <!-- start form here -->
+        <div *ngFor="let field of formItems"
+        [attr.draggable]="true"
+        (dragstart)="onFieldstart($event)"
+        (dragover)="onFieldover($event)"
+        (drop)="onFielddrop($event)"
+        cdkDrag  
+       >
+          <div *ngIf="isKeyHeading(field)" class="pt-4 pb-2" style=" position: relative;">
+            <div class="d-flex justify-content-between align-items-start">
+              <div></div>
+              <h1 class="text-center" [ngStyle]="{ 'font-size': field.fontSize+'px' , 'color': field.color }">
+                {{ field.title }}
+              </h1>
+
+              <div>
+                <button mat-icon-button color="primary" (click)="editForm(field)">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button color="warn" (click)="deleteForm(field)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+          
+          
+          <div *ngIf="isKeytext(field)" class="w-100 border-1 border-dark" style=" display: flex; justify-content: space-between; align-items: center;">
+            <div></div>
+            <mat-form-field class="pt-4 w-75">
+              <mat-label>{{ field.title }}</mat-label>
+              <input [type]="field.type" matInput [placeholder]="field.placeholder">
+            </mat-form-field>
+            
+            <div class="d-flex align-items-center">
+              <button mat-icon-button color="primary" (click)="editForm(field)">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button color="warn" (click)="deleteForm(field)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </div>
+
+         <div *ngIf="isKeyNumber(field)" class=" w-100  border-1 border-dark" style="display: flex; justify-content: space-between; align-items: center;">
+          <div></div>
+              <mat-form-field class="w-75 pt-4" >
+              <mat-label>{{field.title}}</mat-label>
+              <input [type]="field.type"  matInput [placeholder]="field.placeholder" >
+          </mat-form-field> 
+          <div class="d-flex align-items-center">
+            <button mat-icon-button color="primary" (click)="editForm(field)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" (click)="deleteForm(field)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>       
+         </div>
+
+         <div *ngIf="field.type=='date'" class=" w-100  border-1 border-dark" style="display: flex; justify-content: space-between; align-items: center;">
+          <div></div>
+          <mat-form-field class="w-75 pt-4">
+            <mat-label>{{field.title}}</mat-label>
+            <input matInput [matDatepicker]="picker">
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+          
+          <div class="d-flex align-items-center">
+            <button mat-icon-button color="primary" (click)="editForm(field)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" (click)="deleteForm(field)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>       
+         </div>
+
+         <div *ngIf="field.type=='radio'" class=" w-100  border-1 border-dark" style="display: flex; justify-content: space-between; align-items: center;">
+          <div></div>
+          <mat-label id="example-radio-group-label"  class="fw-bold">{{field.title}}</mat-label>
+          <mat-radio-group
+          aria-labelledby="example-radio-group-label"
+          class="example-radio-group"
+        >
+          <mat-radio-button
+            *ngFor="let option of field.options"
+            class="example-radio-button"
+            [value]="option.value"
+          >
+            {{ option.key }}
+            <br />
+          </mat-radio-button>
+        </mat-radio-group>
+        
+          
+          
+          <div class="d-flex align-items-center">
+            <button mat-icon-button color="primary" (click)="editForm(field)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" (click)="deleteForm(field)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>       
+         </div>
+
+         <div *ngIf="field.type=='checklist'" class=" w-100  border-1 border-dark" style="display: flex; justify-content: space-between; align-items: center;">
+          <div></div>
+          <mat-form-field class="w-75 pt-4">
+            <mat-label>{{field.title}}</mat-label>
+            <br>
+            <mat-select>
+                <mat-option *ngFor="let option of field.options" [value]="option.value">{{option.key}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        
+          
+          <div class="d-flex align-items-center">
+            <button mat-icon-button color="primary" (click)="editForm(field)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" (click)="deleteForm(field)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>       
+         </div>
+
+         <div *ngIf="field.type=='submit'" class=" w-100  border-1 border-dark" style="display: flex; justify-content: space-between; align-items: center;">
+          <div></div>
+          <button mat-raised-button [color]="field.backgroundColor">{{field.title}}</button>
+          <div class="d-flex align-items-center">
+            <button mat-icon-button  color="primary"  (click)="editForm(field)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn"  (click)="deleteForm(field)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>       
+         </div>
+
+
+        </div>
+        <!-- End form here -->
+
+      </div>
+      <div class="col-4 border border-dark border-1 rounded-1 shadow d-flex flex-column align-items-center" style="min-height: 30%;">
+        <!-- <h1 class=" fw-bold mt-4">Edit Fields</h1> -->
+        <div class="p-3">
+          <button class="p-4" type="button" mat-raised-button color="primary" (click)="OnSubmit()">Submit Form</button>
+        </div>
+        <mat-form-field class="w-75 pt-4" *ngIf="editItem?.type === 'heading'">
+          <mat-label>Title</mat-label>
+          <input type="text" matInput [(ngModel)]="editTitle" name="editTitle" (input)="editChange(editItem.id)">
+        </mat-form-field>
+
+        <mat-form-field class="w-75 pt-4" *ngIf="editItem?.type === 'heading'">
+          <mat-label>Font size</mat-label>
+          <input type="number" matInput [(ngModel)]="editFontsize"  name="editTitle" (input)="editChange(editItem.id)">
+        </mat-form-field>
+
+        <mat-form-field class="w-75 pt-4" *ngIf="editItem?.type === 'heading'">
+          <mat-label>Font Color</mat-label>
+          <mat-select [(ngModel)]="editColor" name="editColor" (selectionChange)="editChange(editItem.id)">
+            <mat-option *ngFor="let color of fontColors" [value]="color">{{ color }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="w-75 pt-4" *ngIf="editItem?.type === 'text'">
+          <mat-label>Title</mat-label>
+          <input type="text" matInput [(ngModel)]="editText.title"  (input)="editChangeText(editItem.id)">
+        </mat-form-field>
+
+   
+        <mat-form-field class="w-75 pt-4" *ngIf="editItem?.type === 'text'">
+          <mat-label>Place holder</mat-label>
+          <input type="text" matInput [(ngModel)]="editText.placeholder"  (input)="editChangeText(editItem.id)">
+        </mat-form-field>
+
+        <mat-form-field class="w-75 pt-4" *ngIf="editItem?.type === 'text'">
+          <mat-label>Min length</mat-label>
+          <input type="number" matInput [(ngModel)]="editText.minlength"  (input)="editChangeText(editItem.id)">
+        </mat-form-field>
+
+        <mat-form-field class="w-75 pt-4" *ngIf="editItem?.type === 'text'">
+          <mat-label>Max length</mat-label>
+          <input type="number" matInput [(ngModel)]="editText.maxlength"  (input)="editChangeText(editItem.id)">
+        </mat-form-field>
+
+        <div class="w-75 pt-2" *ngIf="editItem?.type === 'text'">
+          <mat-checkbox [(ngModel)]="editText.required" [checked]="editText.required" name="editChecked" (change)="editChangeText(editItem.id)">
+            Required
+          </mat-checkbox>          
+        </div>
+
+        <mat-form-field class="w-75 pt-4" *ngIf="editItem?.type === 'date'">
+          <mat-label>Title</mat-label>
+          <input type="text" matInput [(ngModel)]="editDateTitle"  (input)="editChangeDate(editItem.id)">
+        </mat-form-field>
+
+        <mat-form-field class="w-75 pt-4" *ngIf="editItem?.type === 'radio'">
+          <mat-label>Title</mat-label>
+          <input type="text" matInput [(ngModel)]="editRadioTitle"  (input)="editRadio(editItem.id,'key','')">
+        </mat-form-field>
+        <button mat-icon-button color="primary" *ngIf="editItem?.type === 'radio'" class="" (click)="addRadioOption(editItem.id)">
+          <mat-icon>add</mat-icon>
+        </button>
+        
+        <div *ngIf="editItem?.type === 'radio'">
+          <div *ngFor="let item of editOptions" >
+            <mat-form-field class="pt-4 w-75" style="flex: 1; width: 30%;">
+              <mat-label>Key</mat-label>
+              <input type="text" matInput [(ngModel)]="item.key" (input)="editRadio(editItem.id,'key',item.key)">
+            </mat-form-field>
+            <mat-form-field class="pt-2 w-75" style="flex: 1;">
+              <mat-label>Value</mat-label>
+              <input type="text" matInput [(ngModel)]="item.value" (input)="editRadio(editItem.id,'value',item.value)">
+            </mat-form-field>
+            <button mat-icon-button color="primary" (click)="deleteRadioitems(editItem.id,item.value,item.key)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </div>
+
+        <mat-form-field class="w-75 pt-4" *ngIf="editItem?.type === 'checklist'">
+          <mat-label>Title</mat-label>
+          <input type="text" matInput [(ngModel)]="editChecklistTitle"  (input)="editChecklist(editItem.id,'key','')">
+        </mat-form-field>
+        <button mat-icon-button color="primary" *ngIf="editItem?.type === 'checklist'" class="" (click)="addRadioOption(editItem.id)">
+          <mat-icon>add</mat-icon>
+        </button>
+
+        <div *ngIf="editItem?.type === 'checklist'">
+          <div *ngFor="let item of editChecklistOptions" >
+            <mat-form-field class="pt-4 w-75" style="flex: 1; width: 30%;">
+              <mat-label>Key</mat-label>
+              <input type="text" matInput [(ngModel)]="item.key" (input)="editChecklist(editItem.id,'key',item.key)">
+            </mat-form-field>
+            <mat-form-field class="pt-2 w-75" style="flex: 1;">
+              <mat-label>Value</mat-label>
+              <input type="text" matInput [(ngModel)]="item.value" (input)="editChecklist(editItem.id,'value',item.value)">
+            </mat-form-field>
+            <button mat-icon-button color="primary" (click)="deleteChecklistitems(editItem.id,item.value,item.key)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </div>
+
+        <mat-form-field class="w-75 pt-4" *ngIf="editItem?.type === 'submit'">
+          <mat-label>Title</mat-label>
+          <input type="text" matInput [(ngModel)]="editButtonTitle"  (input)="editButtonChange(editItem.id)">
+        </mat-form-field>
+
+        <mat-form-field class="w-75 pt-4" *ngIf="editItem?.type === 'submit'">
+          <mat-label>Button Color</mat-label>
+          <mat-select [(ngModel)]="editButtonColor" name="editColor" (selectionChange)="editButtonChange(editItem.id)">
+            <mat-option *ngFor="let color of buttonColors" [value]="color">{{ color }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        
+        
+        
+      </div>
+    </div>
+    
+  </mat-sidenav-content>
+</mat-sidenav-container>
