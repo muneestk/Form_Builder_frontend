@@ -1,5 +1,5 @@
-<div class="container shadow border mt-3">
-    <div class="shadow border m-5">
+<div class="container shadow border ">
+    <div class="shadow border m-5" >
       <form [formGroup]="form" #formSubmit="ngForm" (ngSubmit)="OnSubmit()">
         <div *ngFor="let field of singleForm.formFields" class="p-2">
           <div *ngIf="isKeyHeading(field)" class="pt-4 pb-2" style="position: relative;">

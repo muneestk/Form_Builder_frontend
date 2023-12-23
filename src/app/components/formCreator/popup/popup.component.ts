@@ -17,6 +17,8 @@ export class PopupComponent implements OnInit {
 
   formName: boolean = false;
   inputData: any;
+  encodedString!: any  
+
 
   FormSave = this._builder.group({
     name: this._builder.control('', Validators.required)
@@ -25,8 +27,10 @@ export class PopupComponent implements OnInit {
   ngOnInit(): void {
     this.inputData = this.data;
     if (this.inputData.title === 'Add Form Name') {
-      // Set formName to true when the condition is met
       this.formName = true;
+    }else{
+      this.encodedString = `http://localhost:4200/registerForm/${encodeURIComponent(this.inputData.id)}`;
+      console.log(this.encodedString)
     }
   }
 

@@ -213,7 +213,7 @@ ngOnInit(): void {
   
   private generateNumberField(id:string) {
     return {
-        type:'text',
+        type:'number',
         id:id,
         title: 'number',
         placeholder: 'Enter the number',
@@ -265,7 +265,7 @@ ngOnInit(): void {
       this.editTitle = item.title; 
       this.editFontsize = item.fontSize
       this.editColor = item.color
-    }else if(item.type=='text'){
+    }else if(item.type=='text' || item.type=='number'){
       this.editText.title = item.title
       this.editText.placeholder = item.placeholder
       this.editText.required = item.rules.required

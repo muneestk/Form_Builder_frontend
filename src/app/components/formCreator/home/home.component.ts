@@ -1,4 +1,5 @@
 import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
@@ -6,6 +7,7 @@ import { ActivatedRoute } from '@angular/router';
 import { jwtDecode } from 'jwt-decode';
 import { Subscription } from 'rxjs';
 import { UserServiceService } from 'src/app/service/user-service.service';
+import { PopupComponent } from '../popup/popup.component';
 
 
 @Component({
@@ -29,6 +31,8 @@ export class HomeComponent implements AfterViewInit,OnInit,OnDestroy {
         this._userService.getForms(decode.userId).subscribe({
           next:(res)=>{
             this.dataSource = new MatTableDataSource(res);
+            this.dataSource.paginator = this.paginator; 
+            this.dataSource.sort = this.sort;
           }
         })
       )
@@ -37,9 +41,21 @@ export class HomeComponent implements AfterViewInit,OnInit,OnDestroy {
 
   constructor(
     private _userService:UserServiceService,
+    private _matDialog : MatDialog
   ) { }
 
+  share(id:string,formName:string){
+    const dialogRef = this._matDialog.open(PopupComponent,{
+      width : '500px',
+      height : '250px',
+      data:{
+        title: 'Share Form',
+        id:id,
+        formName:formName
+      }
 
+    })
+  }
 
 
   ngAfterViewInit() {

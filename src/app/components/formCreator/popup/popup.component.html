@@ -23,4 +23,29 @@
       </div>
     </form>
   </ng-container>
+
+  <ng-container *ngIf="!formName" class="d-flex justify-content-center align-items-center">
+    <form>
+      <h1 mat-dialog-title>{{ inputData.title }}</h1>
+      <div class="p-1">
+        <share-buttons theme="circles-dark"
+        [include]="['copy', 'facebook', 'email', 'messenger', 'linkedin', 'sms', 'telegram', 'twitter','whatsapp']"
+        [showIcon]="true"
+        [showText]="true"
+        [url]="encodedString"
+        [description]="inputData.formName"
+      >
+      </share-buttons>
+      
+      </div>
+      
+      <div
+        mat-dialog-actions
+        class="d-flex justify-content-center"
+        fxLayout="row"
+        fxLayoutAlign="center center"
+      >
+      </div>
+    </form>
+  </ng-container>
   

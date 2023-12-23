@@ -8,16 +8,12 @@
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <!-- Home Link -->
                 <li class="nav-item">
-                    <a class="nav-link text-dark fs-5" aria-current="page" [routerLink]="['/']" style="transition: background-color 0.3s ease-in-out;">Home</a>
+                    <a class="nav-link text-dark fs-5" aria-current="page" [routerLink]="['/']" style="transition: background-color 0.3s ease-in-out;">Forms</a>
                 </li>
                 <!-- Add Form Link -->
                 <li class="nav-item" *ngIf="authenticated">
                     <a class="nav-link text-dark fs-5" [routerLink]="['/addform']" tabindex="-1" aria-disabled="true" style="transition: background-color 0.3s ease-in-out;">Add Form</a>
-                </li>
-                <!-- My Forms Link -->
-                <li class="nav-item" *ngIf="authenticated">
-                    <a class="nav-link text-dark fs-5" [routerLink]="['/myForms']" tabindex="-1" aria-disabled="true" style="transition: background-color 0.3s ease-in-out;">My Forms</a>
-                </li>
+                </li>             
                 <!-- Account Dropdown (Not Authenticated) -->
                 <li class="nav-item dropdown" *ngIf="!authenticated">
                     <a class="nav-link dropdown-toggle text-dark fs-5" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="transition: background-color 0.3s ease-in-out;">Account</a>

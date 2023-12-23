@@ -65,6 +65,7 @@ export class FormRegisterComponent implements OnInit,OnDestroy{
       const maxLengthValidator = field.rules?.maxlength ? Validators.maxLength(field.rules.maxlength) : null;
       const requiredValidator = Validators.required 
       const numberValidator = field.type === 'number' ? Validators.pattern('^[0-9]+$') : null;
+      console.log(numberValidator,field.type,'num')
     
       if (field.type === 'text' || field.type === 'number') {
         formGroupConfig[field.title] = ['', [minLengthValidator, maxLengthValidator, requiredValidator, numberValidator].filter(Boolean)];

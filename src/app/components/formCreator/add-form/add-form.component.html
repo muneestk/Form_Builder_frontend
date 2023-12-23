@@ -16,8 +16,8 @@
     </button>
     <!-- Add Content Here -->
     <h1 class="fs-2 fw-bold ms-5 mt-4">{{!formedit?'Add Form':'Edit Form'}}</h1>
-    <div class="row justify-content-around mt-3 h-75">
-      <div class="col-6 border border-dark border-1 rounded-1 shadow mt-3" style="min-height: 30%;background-color: #f1e1ef;" 
+    <div class="row justify-content-around gap-3 mt-3 h-75">
+      <div class="col-md-6 col-10 border border-dark border-1 rounded-1 shadow mt-3" style="min-height: 30%;background-color: #f1e1ef;" 
     
       >
         <!-- start form here -->
@@ -168,7 +168,7 @@
         <!-- End form here -->
 
       </div>
-      <div class="col-4 border border-dark border-1 rounded-1 shadow d-flex flex-column align-items-center" style="min-height: 30%;">
+      <div class="col-md-4 col-10 border border-dark border-1 rounded-1 shadow d-flex flex-column align-items-center" style="min-height: 30%;">
         <!-- <h1 class=" fw-bold mt-4">Edit Fields</h1> -->
         <div class="p-3">
           <button class="p-4" type="button" mat-raised-button color="primary" (click)="OnSubmit()">Submit Form</button>
@@ -190,28 +190,28 @@
           </mat-select>
         </mat-form-field>
 
-        <mat-form-field class="w-75 pt-4" *ngIf="editItem?.type === 'text'">
+        <mat-form-field class="w-75 pt-4" *ngIf="editItem && (editItem.type === 'text' || editItem.type === 'number')">
           <mat-label>Title</mat-label>
           <input type="text" matInput [(ngModel)]="editText.title"  (input)="editChangeText(editItem.id)">
         </mat-form-field>
 
    
-        <mat-form-field class="w-75 pt-4" *ngIf="editItem?.type === 'text'">
+        <mat-form-field class="w-75 pt-4" *ngIf="editItem && (editItem.type === 'text' || editItem.type === 'number')">
           <mat-label>Place holder</mat-label>
           <input type="text" matInput [(ngModel)]="editText.placeholder"  (input)="editChangeText(editItem.id)">
         </mat-form-field>
 
-        <mat-form-field class="w-75 pt-4" *ngIf="editItem?.type === 'text'">
+        <mat-form-field class="w-75 pt-4" *ngIf="editItem && (editItem.type === 'text' || editItem.type === 'number')">
           <mat-label>Min length</mat-label>
           <input type="number" matInput [(ngModel)]="editText.minlength"  (input)="editChangeText(editItem.id)">
         </mat-form-field>
 
-        <mat-form-field class="w-75 pt-4" *ngIf="editItem?.type === 'text'">
+        <mat-form-field class="w-75 pt-4" *ngIf="editItem && (editItem.type === 'text' || editItem.type === 'number')">
           <mat-label>Max length</mat-label>
           <input type="number" matInput [(ngModel)]="editText.maxlength"  (input)="editChangeText(editItem.id)">
         </mat-form-field>
 
-        <div class="w-75 pt-2" *ngIf="editItem?.type === 'text'">
+        <div class="w-75 pt-2" *ngIf="editItem && (editItem.type === 'text' || editItem.type === 'number')">
           <mat-checkbox [(ngModel)]="editText.required" [checked]="editText.required" name="editChecked" (change)="editChangeText(editItem.id)">
             Required
           </mat-checkbox>          

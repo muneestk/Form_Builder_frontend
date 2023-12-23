@@ -16,9 +16,9 @@ import { NavbarComponent } from './components/formCreator/navbar/navbar.componen
 import { AddFormComponent } from './components/formCreator/add-form/add-form.component';
 import { PopupComponent } from './components/formCreator/popup/popup.component';
 import { FormRegisterComponent } from './components/formCreator/form-register/form-register.component';
-import { FormEditComponent } from './components/formCreator/form-edit/form-edit.component';
 import { FormDetailsComponent } from './components/formCreator/form-details/form-details.component';
-
+import { ShareButtonsModule } from 'ngx-sharebuttons/buttons';
+import { ShareIconsModule } from 'ngx-sharebuttons/icons';
 
 @NgModule({
   declarations: [
@@ -30,7 +30,6 @@ import { FormDetailsComponent } from './components/formCreator/form-details/form
     AddFormComponent,
     PopupComponent,
     FormRegisterComponent,
-    FormEditComponent,
     FormDetailsComponent
   ],
   imports: [
@@ -42,7 +41,10 @@ import { FormDetailsComponent } from './components/formCreator/form-details/form
     MaterialModule,
     HttpClientModule,
     ToastrModule.forRoot(),
-    FormsModule
+    FormsModule,
+    ShareButtonsModule,
+    ShareIconsModule
+    
   ],
   providers: [UserServiceService],
   bootstrap: [AppComponent],
