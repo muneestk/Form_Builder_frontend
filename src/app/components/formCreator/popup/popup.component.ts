@@ -29,7 +29,7 @@ export class PopupComponent implements OnInit {
     if (this.inputData.title === 'Add Form Name') {
       this.formName = true;
     }else{
-      this.encodedString = `http://localhost:4200/registerForm/${encodeURIComponent(this.inputData.id)}`;
+      this.encodedString = `https://form-builder-virid-seven.vercel.app/registerForm/${encodeURIComponent(this.inputData.id)}`;
       console.log(this.encodedString)
     }
   }
