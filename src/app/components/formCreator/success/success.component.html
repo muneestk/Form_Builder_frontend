@@ -1,1 +1,11 @@
-<p>success works!</p>
+    <app-navbar *ngIf="authenticated"></app-navbar>
+    <div class="d-flex justify-content-center align-items-center h-100">
+        <div class="card">
+            <div class="checkmark-container">
+                <i class="checkmark">✓</i>
+            </div>
+            <h1>Success</h1>
+            <p>Your form has been successfully submitted! <br/> We appreciate your registration and will be in touch shortly.</p>
+        </div>
+    </div>
+    

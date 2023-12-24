@@ -16,6 +16,8 @@ export class PopupComponent implements OnInit {
   ) {}
 
   formName: boolean = false;
+  confirmDelete: boolean = false;
+  shareForm: boolean = false;
   inputData: any;
   encodedString!: any  
 
@@ -28,16 +30,29 @@ export class PopupComponent implements OnInit {
     this.inputData = this.data;
     if (this.inputData.title === 'Add Form Name') {
       this.formName = true;
-    }else{
+    }else if(this.inputData.title === 'Share Form'){
+      this.shareForm=true
       this.encodedString = `https://form-builder-virid-seven.vercel.app/registerForm/${encodeURIComponent(this.inputData.id)}`;
-      console.log(this.encodedString)
+    }else{
+      this.confirmDelete=true
     }
   }
 
-  formnameSave() {
+
+
+  formnameSave():void {
     const form = this.FormSave.getRawValue()
     if(this.FormSave.valid){
       this._ref.close({ updatedData: form });
     }
   }
+
+  onConfirm():void{
+    this._ref.close(true);
+  }
+  
+
+  
+
+
 }

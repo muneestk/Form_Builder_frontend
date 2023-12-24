@@ -49,6 +49,10 @@ export class UserServiceService {
     return this._http.patch(`${this.userApiKey}/editForm`,{form,formId},httpOptions)
   }
 
+  deleteForm(id:string):Observable<any>{
+    return this._http.delete(`${this.userApiKey}/deleteForm/${id}`);
+  }
+
 
   
 }

@@ -1,0 +1,11 @@
+.example-form {
+  width: 100%;
+}
+
+@media (max-width: 767px) {
+  .example-form {
+      min-width: 250px;
+      min-height: 400px;
+      max-width: 600px;
+  }
+}

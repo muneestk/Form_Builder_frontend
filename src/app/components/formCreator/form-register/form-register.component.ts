@@ -1,6 +1,6 @@
 import { Component, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { UserServiceService } from 'src/app/service/user-service.service';
@@ -17,6 +17,7 @@ export class FormRegisterComponent implements OnInit,OnDestroy{
     private _activateRoute:ActivatedRoute,
     private _toastr : ToastrService,
     private _fb : FormBuilder,
+    private _router:Router
     ){}
 
     private _subscription:Subscription = new Subscription()
@@ -24,8 +25,13 @@ export class FormRegisterComponent implements OnInit,OnDestroy{
     formId:any
     singleForm:any
     formName!:string
+    authenticated:boolean=false
    
   ngOnInit(): void {
+    let token = localStorage.getItem('userSecret')
+    if(token){
+      this.authenticated=true
+    }
     this.formId = this._activateRoute.snapshot.paramMap.get('id')
     if(this.formId){
       this._subscription.add(
@@ -65,7 +71,6 @@ export class FormRegisterComponent implements OnInit,OnDestroy{
       const maxLengthValidator = field.rules?.maxlength ? Validators.maxLength(field.rules.maxlength) : null;
       const requiredValidator = Validators.required 
       const numberValidator = field.type === 'number' ? Validators.pattern('^[0-9]+$') : null;
-      console.log(numberValidator,field.type,'num')
     
       if (field.type === 'text' || field.type === 'number') {
         formGroupConfig[field.title] = ['', [minLengthValidator, maxLengthValidator, requiredValidator, numberValidator].filter(Boolean)];
@@ -84,7 +89,7 @@ export class FormRegisterComponent implements OnInit,OnDestroy{
       this._subscription.add(
         this._userService.registerForm(formvalue,this.formId,this.formName).subscribe({
           next:(res)=>{
-            this.form.reset();
+            this._router.navigate(['/succesForm'])
             this._toastr.success(res.message)
           },
           error:(err)=>{

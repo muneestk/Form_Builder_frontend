@@ -1,20 +1,23 @@
-@media (min-width: 768px) {
-    /* Increase height on medium screens */
-    .navbar {
-        height: 100px; /* Adjust the desired height */
+/* Media query for small screens */
+@media (max-width: 767px) {
+    .navbar-toggler-icon {
+        background-color: #000; /* Black color for the toggle icon on mobile */
     }
 
-    /* Customize the toggle button */
-    .custom-toggler {
-        background-color: #343a40 ; /* Dark color for the toggle button */
-        border-color: #343a40;
-    }
-
-    .custom-toggler-icon {
-        background-color: #fff; /* White color for the toggle icon */
-    }
 }
 
-li:hover{
-    color: gray !important;
+
+    /* Style the hover effect for list items on small screens */
+    .navbar-nav .nav-item:hover {
+        background-color: #fff; /* Dark background color on hover */
+        color: #0b0b0b; /* White text color on hover */
+    }
+
+    /* Remove the hover effect on the toggle icon */
+    .navbar-toggler:hover {
+        background-color: transparent;
+    }
+
+.navbar {
+    height: 100px; /* Adjust the desired height */
 }

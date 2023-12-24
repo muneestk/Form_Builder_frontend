@@ -19,6 +19,7 @@ import { FormRegisterComponent } from './components/formCreator/form-register/fo
 import { FormDetailsComponent } from './components/formCreator/form-details/form-details.component';
 import { ShareButtonsModule } from 'ngx-sharebuttons/buttons';
 import { ShareIconsModule } from 'ngx-sharebuttons/icons';
+import { SuccessComponent } from './components/formCreator/success/success.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { ShareIconsModule } from 'ngx-sharebuttons/icons';
     AddFormComponent,
     PopupComponent,
     FormRegisterComponent,
-    FormDetailsComponent
+    FormDetailsComponent,
+    SuccessComponent
   ],
   imports: [
     BrowserModule,

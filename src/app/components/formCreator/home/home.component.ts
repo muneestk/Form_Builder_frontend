@@ -8,6 +8,7 @@ import { jwtDecode } from 'jwt-decode';
 import { Subscription } from 'rxjs';
 import { UserServiceService } from 'src/app/service/user-service.service';
 import { PopupComponent } from '../popup/popup.component';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -19,6 +20,7 @@ export class HomeComponent implements AfterViewInit,OnInit,OnDestroy {
   displayedColumns: string[] = ['NO', 'Form Name', 'Regitered count','Form Details','Register', 'Form Edit'];
   dataSource!: MatTableDataSource<any>;
   private _subscription:Subscription = new Subscription()
+  userId!:string
 
   @ViewChild(MatPaginator) paginator!: MatPaginator ;
   @ViewChild(MatSort) sort!: MatSort;
@@ -27,21 +29,27 @@ export class HomeComponent implements AfterViewInit,OnInit,OnDestroy {
     const token = localStorage.getItem('userSecret')
     if(token){
       const decode:any=jwtDecode(token)
-      this._subscription.add(
-        this._userService.getForms(decode.userId).subscribe({
-          next:(res)=>{
-            this.dataSource = new MatTableDataSource(res);
-            this.dataSource.paginator = this.paginator; 
-            this.dataSource.sort = this.sort;
-          }
-        })
-      )
+      this.userId=decode.userId
+      this.getform(this.userId)
     }
+  }
+
+  getform(id:string){
+    this._subscription.add(
+      this._userService.getForms(id).subscribe({
+        next:(res)=>{
+          this.dataSource = new MatTableDataSource(res);
+          this.dataSource.paginator = this.paginator; 
+          this.dataSource.sort = this.sort;
+        }
+      })
+    )
   }
 
   constructor(
     private _userService:UserServiceService,
-    private _matDialog : MatDialog
+    private _matDialog : MatDialog,
+    private _toastr : ToastrService
   ) { }
 
   share(id:string,formName:string){
@@ -70,6 +78,36 @@ export class HomeComponent implements AfterViewInit,OnInit,OnDestroy {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  deleteForm(formId: string): void {
+    const dialogRef = this._matDialog.open(PopupComponent, {
+      width: '500px',
+      height: '250px',
+      data: {
+        title: 'Confirm Delete'
+      }
+    });
+  
+    dialogRef.afterClosed().subscribe((result: boolean) => {
+      if (result) {
+       this._subscription.add(
+        this._userService.deleteForm(formId).subscribe({
+          next:(res)=>{
+            this.getform(this.userId)
+            this._toastr.success(res.message)
+          },
+          error:(err)=>{
+            if(err.error.message){
+              this._toastr.error(err.error.message)
+            }else{
+              this._toastr.error('Something went wrong')
+            }
+          }
+        })
+       )
+      }
+    });
   }
 
   ngOnDestroy(): void {

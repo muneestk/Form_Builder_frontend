@@ -1,3 +1,4 @@
+<app-navbar></app-navbar>
 <div class="container pt-5">
     <h1 class="fs-2 fw-bold ms-2">Forms</h1>
 <mat-form-field class="w-100">
@@ -49,8 +50,11 @@
           <button mat-icon-button  color="primary" [routerLink]="['/editForm',row._id]" >
           <mat-icon >edit</mat-icon>
         </button>
+        <button mat-icon-button color="warn" (click)="deleteForm(row._id)">
+          <mat-icon>delete</mat-icon>
+        </button>
        
-        <button mat-icon-button  color="warn" (click)="share(row._id,row.formName)" >
+        <button mat-icon-button (click)="share(row._id,row.formName)" >
           <mat-icon>share</mat-icon>
         </button>
        </td>
