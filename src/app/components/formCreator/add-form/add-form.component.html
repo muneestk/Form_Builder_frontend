@@ -1,5 +1,10 @@
-<app-navbar></app-navbar>
-<mat-sidenav-container class="sidenav-container">
+<div style="position: relative; z-index: 0">
+  <div style="position: relative; z-index: 10">
+    <app-navbar class="mb-5 " style="z-index: 10"></app-navbar>
+  </div>
+  <div class="row h-100 w-100 " style="position: relative; z-index: 1">
+
+<mat-sidenav-container class="sidenav-container w-100">
   <mat-sidenav #drawer class="sidenav" fixedInViewport style="margin-top: 120px; width: 250px;"
     [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
     [mode]="(isHandset$ | async) ? 'over' : 'side'"
@@ -17,8 +22,9 @@
     </button>
     <!-- Add Content Here -->
     <h1 class="fs-2 fw-bold ms-5 mt-4">{{!formedit?'Add Form':'Edit Form'}}</h1>
-    <div class="row justify-content-around gap-3 mt-3 h-75">
+    <div class="row justify-content-around gap-3 mt-3 " >
       <div class="col-md-6 col-10 border border-dark border-1 rounded-1 shadow mt-3" style="min-height: 30%;background-color: #f1e1ef;" 
+      style="min-height: 495px;max-height: 495px;overflow-y: auto;"
     
       >
         <!-- start form here -->
@@ -181,7 +187,7 @@
 
         <mat-form-field class="w-75 pt-4" *ngIf="editItem?.type === 'heading'">
           <mat-label>Font size</mat-label>
-          <input type="number" matInput [(ngModel)]="editFontsize"  name="editTitle" (input)="editChange(editItem.id)">
+          <input type="number" matInput [(ngModel)]="editFontsize" max="100" min="10"  name="editTitle" (input)="editChange(editItem.id)">
         </mat-form-field>
 
         <mat-form-field class="w-75 pt-4" *ngIf="editItem?.type === 'heading'">
@@ -204,7 +210,7 @@
 
         <mat-form-field class="w-75 pt-4" *ngIf="editItem && (editItem.type === 'text' || editItem.type === 'number')">
           <mat-label>Min length</mat-label>
-          <input type="number" matInput [(ngModel)]="editText.minlength"  (input)="editChangeText(editItem.id)">
+          <input type="number" matInput [(ngModel)]="editText.minlength"   (input)="editChangeText(editItem.id)">
         </mat-form-field>
 
         <mat-form-field class="w-75 pt-4" *ngIf="editItem && (editItem.type === 'text' || editItem.type === 'number')">
@@ -290,3 +296,5 @@
     
   </mat-sidenav-content>
 </mat-sidenav-container>
+</div>
+</div>

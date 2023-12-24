@@ -6,6 +6,13 @@
 
 }
 
+@media (min-width: 767px) {
+    .navbar {
+        height: 100px;
+    }
+
+}
+
 
     /* Style the hover effect for list items on small screens */
     .navbar-nav .nav-item:hover {
@@ -18,6 +25,3 @@
         background-color: transparent;
     }
 
-.navbar {
-    height: 100px; /* Adjust the desired height */
-}
