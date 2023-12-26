@@ -24,16 +24,17 @@
     <h1 class="fs-2 fw-bold ms-5 mt-4">{{!formedit?'Add Form':'Edit Form'}}</h1>
     <div class="row justify-content-around gap-3 mt-3 " >
       <div class="col-md-6 col-10 border border-dark border-1 rounded-1 shadow mt-3" style="min-height: 30%;background-color: #f1e1ef;" 
-      style="min-height: 495px;max-height: 495px;overflow-y: auto;"
-    
-      >
+      style="min-height: 495px;max-height: 495px;overflow-y: auto;">
         <!-- start form here -->
         <div *ngFor="let field of formItems;let i=index"
         [attr.draggable]="true"
         (dragstart)="onFieldstart($event,i)"
         (dragover)="onFieldover($event,i)"
         (drop)="onFielddrop($event,i)"
-        cdkDrag  
+        (touchstart)="onFieldstart($event, i)"
+       (touchmove)="onFieldover($event, i)"
+     (touchend)="onFielddrop($event, i)"
+          
        >
           <div *ngIf="isKeyHeading(field)" class="pt-4 pb-2" style=" position: relative;">
             <div class="d-flex justify-content-between align-items-start">
@@ -176,7 +177,7 @@
 
       </div>
       <div class="col-md-4 col-10 border border-dark border-1 rounded-1 shadow d-flex flex-column align-items-center" style="min-height: 30%;">
-        <!-- <h1 class=" fw-bold mt-4">Edit Fields</h1> -->
+        <h1 class="mt-4">You can easily edit the field order by dragging. Just give it a try!</h1>
         <div class="p-3">
           <button class="p-4" type="button" mat-raised-button color="primary" (click)="OnSubmit()">Submit Form</button>
         </div>
