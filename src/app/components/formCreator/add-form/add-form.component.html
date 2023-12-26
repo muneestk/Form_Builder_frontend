@@ -28,11 +28,11 @@
     
       >
         <!-- start form here -->
-        <div *ngFor="let field of formItems"
+        <div *ngFor="let field of formItems;let i=index"
         [attr.draggable]="true"
-        (dragstart)="onFieldstart($event)"
-        (dragover)="onFieldover($event)"
-        (drop)="onFielddrop($event)"
+        (dragstart)="onFieldstart($event,i)"
+        (dragover)="onFieldover($event,i)"
+        (drop)="onFielddrop($event,i)"
         cdkDrag  
        >
           <div *ngIf="isKeyHeading(field)" class="pt-4 pb-2" style=" position: relative;">

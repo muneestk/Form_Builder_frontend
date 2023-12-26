@@ -457,21 +457,28 @@ ngOnInit(): void {
     }
 
     dragData:any
+    tempData:any
+    tempIndex!:number
 
-    onFieldstart(event:any){
+    onFieldstart(event:any,i:number){
       this.dragData=event.item
+      this.tempData=this.formItems[i]
+      this.tempIndex = i
+
     }
 
-    onFieldover(event:any){
+    onFieldover(event:any,i:number){
       event.preventDefault()
     }
 
     
 
-    onFielddrop(event:any){
+    onFielddrop(event:any,i:number){
       event.preventDefault()
       const target = event.target
       target.innertext = this.dragData
+      this.formItems.splice(this.tempIndex,1)
+      this.formItems.splice(i,0,this.tempData)
     }
 
     formid:any
